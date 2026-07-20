@@ -32,6 +32,9 @@ app.use('/api/orders', require('./Routes/orderRoutes'));
 app.use('/api/reviews', require('./Routes/reviewRoutes'));
 app.use('/api/blogs', require('./Routes/blogRoutes'));
 app.use('/api/settings', require('./Routes/settingRoutes'));
+app.use('/api/enquiries', require('./Routes/enquiryRoutes'));
+app.use('/api/contact', require('./Routes/contactRoutes'));
+app.use('/api/complaints', require('./Routes/complaintRoutes'));
 
 // Root endpoint
 app.get('/', (req, res) => {

@@ -1,16 +1,32 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import PageHero from '../components/Layout/PageHero';
+import api from '../api/axios';
 
 const Contact = () => {
+  const [loading, setLoading] = useState(false);
   const breadcrumbs = [
     { label: 'Home', link: '/home' },
     { label: 'Contact Us', active: true }
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Message sent successfully! Our team will get back to you soon.');
-    e.target.reset();
+    
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+
+    setLoading(true);
+    try {
+      await api.post('/contact', data);
+      alert('Message sent successfully! Our team will get back to you soon.');
+      e.target.reset();
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || 'Error sending message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

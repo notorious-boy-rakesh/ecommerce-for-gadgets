@@ -1,11 +1,17 @@
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import PageHero from '../components/Layout/PageHero';
 import ProductCard from '../components/Cards/ProductCard';
 import { AdminContext } from '../context/AdminContext';
 
 const Products = () => {
   const { products } = useContext(AdminContext);
+  const [selectedCategory, setSelectedCategory] = useState('All Products');
+
+  const categoryList = ['All Products', 'Smartphones', 'Laptops', 'Watches', 'Audio', 'Accessories'];
+  const filteredProducts = selectedCategory === 'All Products' 
+    ? products 
+    : products.filter(p => p.category === selectedCategory);
 
   const breadcrumbs = [
     { label: 'Home', link: '/home' },
@@ -25,18 +31,31 @@ const Products = () => {
       <section className="section-pad">
         <div className="container">
           
-          {/* Category Filter Labels (Static) */}
+          {/* Category Filter Labels */}
           <div className="d-flex gap-2 flex-wrap mb-5">
-            <span style={{ background: 'var(--clr-accent)', color: '#fff', fontFamily: 'var(--font-heading)', fontSize: '0.82rem', fontWeight: 700, padding: '7px 18px', borderRadius: '8px', cursor: 'default' }}>All Products</span>
-            <span style={{ background: 'var(--clr-surface)', color: 'var(--clr-muted)', fontFamily: 'var(--font-heading)', fontSize: '0.82rem', fontWeight: 600, padding: '7px 18px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>Smartphones</span>
-            <span style={{ background: 'var(--clr-surface)', color: 'var(--clr-muted)', fontFamily: 'var(--font-heading)', fontSize: '0.82rem', fontWeight: 600, padding: '7px 18px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>Laptops</span>
-            <span style={{ background: 'var(--clr-surface)', color: 'var(--clr-muted)', fontFamily: 'var(--font-heading)', fontSize: '0.82rem', fontWeight: 600, padding: '7px 18px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>Watches</span>
-            <span style={{ background: 'var(--clr-surface)', color: 'var(--clr-muted)', fontFamily: 'var(--font-heading)', fontSize: '0.82rem', fontWeight: 600, padding: '7px 18px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>Audio</span>
-            <span style={{ background: 'var(--clr-surface)', color: 'var(--clr-muted)', fontFamily: 'var(--font-heading)', fontSize: '0.82rem', fontWeight: 600, padding: '7px 18px', borderRadius: '8px', border: '1px solid var(--clr-border)' }}>Accessories</span>
+            {categoryList.map(cat => (
+              <span 
+                key={cat}
+                onClick={() => setSelectedCategory(cat)}
+                style={{ 
+                  background: selectedCategory === cat ? 'var(--clr-accent)' : 'var(--clr-surface)', 
+                  color: selectedCategory === cat ? '#fff' : 'var(--clr-muted)', 
+                  fontFamily: 'var(--font-heading)', 
+                  fontSize: '0.82rem', 
+                  fontWeight: selectedCategory === cat ? 700 : 600, 
+                  padding: '7px 18px', 
+                  borderRadius: '8px', 
+                  border: selectedCategory === cat ? 'none' : '1px solid var(--clr-border)',
+                  cursor: 'pointer' 
+                }}
+              >
+                {cat}
+              </span>
+            ))}
           </div>
 
           <div className="row g-4">
-            {products.map((p, i) => (
+            {filteredProducts.map((p, i) => (
               <div key={p.id || i} className="col-md-6 col-lg-4 col-xl-3">
                 <ProductCard product={p} />
               </div>

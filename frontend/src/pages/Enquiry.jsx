@@ -1,17 +1,21 @@
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 import PageHero from '../components/Layout/PageHero';
+import api from '../api/axios';
 
 const Enquiry = () => {
+  const [loading, setLoading] = useState(false);
   const breadcrumbs = [
     { label: 'Home', link: '/home' },
     { label: 'Contact', link: '/contact' },
     { label: 'Enquiry', active: true }
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
     const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
     const fullname = formData.get('fullname');
     const email = formData.get('email');
     const phone = formData.get('phone');
@@ -33,8 +37,17 @@ const Enquiry = () => {
       return;
     }
 
-    alert("Enquiry submitted successfully!");
-    e.target.reset();
+    setLoading(true);
+    try {
+      await api.post('/enquiries', data);
+      alert("Enquiry submitted successfully!");
+      e.target.reset();
+    } catch (error) {
+      console.error(error);
+      alert(error.response?.data?.message || 'Error submitting enquiry. Please try again.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
