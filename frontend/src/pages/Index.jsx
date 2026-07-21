@@ -1,9 +1,35 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Index = () => {
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+      document.body.classList.add('dark-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (isDarkMode) {
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
+
   return (
-    <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'linear-gradient(135deg, #FFFAF3 0%, #FFF2DB 100%)' }}>
-      <div className="text-center" style={{ padding: '40px', background: 'white', borderRadius: '24px', boxShadow: '0 20px 40px rgba(245,158,11,0.1)' }}>
+    <div style={{ position: 'relative', height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--clr-bg)' }}>
+      <button onClick={toggleTheme} className="btn btn-sm btn-link text-decoration-none" style={{ position: 'absolute', top: '20px', right: '20px', color: 'var(--clr-text)', fontSize: '1.4rem' }}>
+        <i className={isDarkMode ? 'bx bxs-sun' : 'bx bxs-moon'}></i>
+      </button>
+      <div className="text-center" style={{ padding: '40px', background: 'var(--clr-surface)', borderRadius: '24px', boxShadow: 'var(--shadow-lg)' }}>
         <h1 style={{ fontFamily: 'var(--font-heading)', fontSize: '3rem', fontWeight: 900, color: 'var(--clr-text)', marginBottom: '8px' }}>
           TECKKIE <span style={{ color: 'var(--clr-accent-h)' }}>GADGETS</span>
         </h1>

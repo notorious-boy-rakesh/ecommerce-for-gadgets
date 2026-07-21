@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import '../styles/Auth.css';
@@ -6,6 +6,27 @@ import '../styles/Auth.css';
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+      document.body.classList.add('dark-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (isDarkMode) {
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
   const navigate = useNavigate();
   const location = useLocation();
   const { login } = useContext(AuthContext);
@@ -47,8 +68,13 @@ const Login = () => {
           <Link to="/" style={{ fontFamily: 'var(--font-heading)', fontSize: '1.3rem', fontWeight: 900, color: 'var(--clr-text)', letterSpacing: '-0.02em', textDecoration: 'none' }}>
             TECKKIE <span style={{ color: 'var(--clr-accent-h)' }}>GADGETS</span>
           </Link>
-          <div style={{ fontSize: '0.88rem', color: 'var(--clr-muted)' }}>
-            New here? <Link to="/signup" style={{ color: 'var(--clr-accent-h)', fontWeight: 600, textDecoration: 'none' }}>Create a free account</Link>
+          <div className="d-flex align-items-center gap-3">
+            <button onClick={toggleTheme} className="btn btn-sm btn-link text-decoration-none p-0" style={{ color: 'var(--clr-text)', fontSize: '1.2rem' }}>
+              <i className={isDarkMode ? 'bx bxs-sun' : 'bx bxs-moon'}></i>
+            </button>
+            <div style={{ fontSize: '0.88rem', color: 'var(--clr-muted)' }}>
+              New here? <Link to="/signup" style={{ color: 'var(--clr-accent-h)', fontWeight: 600, textDecoration: 'none' }}>Create a free account</Link>
+            </div>
           </div>
         </div>
       </div>

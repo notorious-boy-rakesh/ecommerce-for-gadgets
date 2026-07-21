@@ -1116,3 +1116,39 @@ textarea.form-control { resize: vertical; min-height: 140px; }
   .btn-primary-tg, .btn-outline-tg, .btn-cyan-tg { padding: 12px 22px; font-size: 0.95rem; }
   .product-card-img-wrap { height: 180px; }
 }
+
+/* --- Global Light Theme Button Override --- */
+body:not(.dark-theme) .btn:not(.btn-link):not(.navbar-toggler):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close),
+body:not(.dark-theme) button:not(.btn-link):not(.navbar-toggler):not(.admin-icon-btn):not(.admin-action-btn):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close) {
+  background: linear-gradient(135deg, var(--clr-accent) 0%, #1d4ed8 100%) !important;
+  color: #fff !important;
+  border: none !important;
+  box-shadow: var(--shadow-accent) !important;
+}
+body:not(.dark-theme) .btn:not(.btn-link):not(.navbar-toggler):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close):hover,
+body:not(.dark-theme) button:not(.btn-link):not(.navbar-toggler):not(.admin-icon-btn):not(.admin-action-btn):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(37,99,235,0.50) !important;
+}
+
+/* --- Global Dark Theme Button Override (Enforcing Strict Dark Mode without Gradients) --- */
+body.dark-theme .btn-primary-tg,
+body.dark-theme .btn-outline-tg,
+body.dark-theme .btn-cyan-tg,
+body.dark-theme .admin-btn-primary,
+body.dark-theme .btn:not(.btn-link):not(.navbar-toggler):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close),
+body.dark-theme button:not(.btn-link):not(.navbar-toggler):not(.admin-icon-btn):not(.admin-action-btn):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close) {
+  background: linear-gradient(135deg, #F62440 0%, #be185d 100%) !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: 0 8px 24px rgba(246, 36, 64, 0.25) !important;
+}
+body.dark-theme .btn-primary-tg:hover,
+body.dark-theme .btn-outline-tg:hover,
+body.dark-theme .btn-cyan-tg:hover,
+body.dark-theme .admin-btn-primary:hover,
+body.dark-theme .btn:not(.btn-link):not(.navbar-toggler):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close):hover,
+body.dark-theme button:not(.btn-link):not(.navbar-toggler):not(.admin-icon-btn):not(.admin-action-btn):not(.btn-close):not(.btn-nav-cart):not(.btn-nav-logout):not(.admin-mobile-toggle):not(.admin-mobile-close):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(246, 36, 64, 0.4) !important;
+}
