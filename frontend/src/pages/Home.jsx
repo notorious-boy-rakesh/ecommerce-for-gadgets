@@ -66,12 +66,12 @@ const Home = () => {
             <p className="section-sub">From the latest flagships to smart home gadgets — every category you need, all in one store.</p>
           </div>
           <div className="row g-4">
-            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="📱" name="Smartphones" count="48 Products" /></div>
-            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="⌚" name="Smartwatches" count="36 Products" /></div>
-            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="🎧" name="Headphones" count="52 Products" /></div>
-            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="💻" name="Laptops" count="24 Products" /></div>
-            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="🔊" name="Speakers" count="30 Products" /></div>
-            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="🎵" name="TWS Earbuds" count="40 Products" /></div>
+            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="📱" name="Smartphones" count="48 Products" link="/products?category=Smartphones" /></div>
+            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="⌚" name="Smartwatches" count="36 Products" link="/products?category=Watches" /></div>
+            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="🎧" name="Headphones" count="52 Products" link="/products?category=Audio" /></div>
+            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="💻" name="Laptops" count="24 Products" link="/products?category=Laptops" /></div>
+            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="🔊" name="Speakers" count="30 Products" link="/products?category=Audio" /></div>
+            <div className="col-6 col-md-4 col-lg-2"><CategoryCard icon="🎵" name="TWS Earbuds" count="40 Products" link="/products?category=Audio" /></div>
           </div>
         </div>
       </section>

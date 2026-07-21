@@ -1,12 +1,23 @@
-import { Link } from 'react-router-dom';
-import { useContext, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import { useContext, useState, useEffect } from 'react';
 import PageHero from '../components/Layout/PageHero';
 import ProductCard from '../components/Cards/ProductCard';
 import { AdminContext } from '../context/AdminContext';
 
 const Products = () => {
   const { products } = useContext(AdminContext);
-  const [selectedCategory, setSelectedCategory] = useState('All Products');
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const initialCategory = searchParams.get('category') || 'All Products';
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const cat = searchParams.get('category');
+    if (cat) {
+      setSelectedCategory(cat);
+    }
+  }, [location.search]);
 
   const categoryList = ['All Products', 'Smartphones', 'Laptops', 'Watches', 'Audio', 'Accessories'];
   const filteredProducts = selectedCategory === 'All Products' 
@@ -54,13 +65,19 @@ const Products = () => {
             ))}
           </div>
 
-          <div className="row g-4">
-            {filteredProducts.map((p, i) => (
-              <div key={p.id || i} className="col-md-6 col-lg-4 col-xl-3">
-                <ProductCard product={p} />
-              </div>
-            ))}
-          </div>
+          {filteredProducts.length === 0 ? (
+            <div className="text-center py-5">
+              <h4 style={{ fontFamily: 'var(--font-heading)', color: 'var(--clr-text-2)' }}>No products found in this category.</h4>
+            </div>
+          ) : (
+            <div className="row g-4">
+              {filteredProducts.map((p, i) => (
+                <div key={p._id || p.id || i} className="col-md-6 col-lg-4 col-xl-3">
+                  <ProductCard product={p} />
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
