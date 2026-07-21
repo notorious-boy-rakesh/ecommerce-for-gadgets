@@ -3,6 +3,7 @@ import AppRoutes from './routes/AppRoutes';
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import { AdminProvider } from './context/AdminContext';
+import ScrollToTop from './components/Common/ScrollToTop';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <CartProvider>
         <AdminProvider>
           <BrowserRouter>
+            <ScrollToTop />
             <AppRoutes />
           </BrowserRouter>
         </AdminProvider>

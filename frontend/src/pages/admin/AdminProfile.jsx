@@ -125,7 +125,7 @@ const AdminProfile = () => {
             />
           </div>
           
-          <button type="submit" className="btn-primary-tg w-100" disabled={status.loading}>
+          <button type="submit" className="admin-btn-primary w-100" style={{ padding: '0.8rem', marginTop: '1rem', justifyContent: 'center' }} disabled={status.loading}>
             {status.loading ? 'Saving...' : 'Save Changes'}
           </button>
         </form>

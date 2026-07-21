@@ -22,13 +22,13 @@
   --admin-navbar-height: 64px;
 }
 
-[data-theme="dark"] {
-  --admin-bg: #0f172a;
-  --admin-surface: #1e293b;
-  --admin-sidebar-bg: #1e293b;
-  --admin-text-main: #f8fafc;
-  --admin-text-muted: #94a3b8;
-  --admin-border: #334155;
+body.dark-theme {
+  --admin-bg: #121212;
+  --admin-surface: #1e1e1e;
+  --admin-sidebar-bg: #1e1e1e;
+  --admin-text-main: #ffffff;
+  --admin-text-muted: #a0a0a0;
+  --admin-border: #333333;
 }
 
 body.admin-mode {

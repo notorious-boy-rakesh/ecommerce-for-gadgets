@@ -20,9 +20,19 @@ const Products = () => {
   }, [location.search]);
 
   const categoryList = ['All Products', 'Smartphones', 'Laptops', 'Watches', 'Audio', 'Accessories'];
-  const filteredProducts = selectedCategory === 'All Products' 
+  const searchQuery = searchParams.get('search') || '';
+
+  let filteredProducts = selectedCategory === 'All Products' 
     ? products 
     : products.filter(p => p.category === selectedCategory);
+
+  if (searchQuery) {
+    filteredProducts = filteredProducts.filter(p => 
+      p.name?.toLowerCase().includes(searchQuery.toLowerCase()) || 
+      p.desc?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.category?.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+  }
 
   const breadcrumbs = [
     { label: 'Home', link: '/home' },

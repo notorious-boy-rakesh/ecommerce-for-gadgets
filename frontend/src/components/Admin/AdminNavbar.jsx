@@ -1,10 +1,31 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 
-const AdminNavbar = ({ toggleSidebar }) => {
+const AdminNavbar = ({ toggleSidebar, searchQuery, setSearchQuery }) => {
   const { adminLogout } = useContext(AdminContext);
   const navigate = useNavigate();
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      setIsDarkMode(true);
+      document.body.classList.add('dark-theme');
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    if (isDarkMode) {
+      document.body.classList.remove('dark-theme');
+      localStorage.setItem('theme', 'light');
+      setIsDarkMode(false);
+    } else {
+      document.body.classList.add('dark-theme');
+      localStorage.setItem('theme', 'dark');
+      setIsDarkMode(true);
+    }
+  };
 
   return (
     <header className="admin-navbar">
@@ -14,16 +35,19 @@ const AdminNavbar = ({ toggleSidebar }) => {
         </button>
         <div className="admin-search">
           <i className='bx bx-search'></i>
-          <input type="text" placeholder="Search anything..." />
+          <input 
+            type="text" 
+            placeholder="Search services..." 
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
         </div>
       </div>
       <div className="admin-navbar-right">
-        <button className="admin-icon-btn">
-          <i className='bx bx-moon'></i>
+        <button className="admin-icon-btn" onClick={toggleTheme}>
+          <i className={isDarkMode ? 'bx bxs-sun' : 'bx bx-moon'}></i>
         </button>
-        <button className="admin-icon-btn">
-          <i className='bx bx-bell'></i>
-        </button>
+
         <button 
           className="admin-btn-secondary ms-3 d-flex align-items-center gap-2"
           onClick={() => {

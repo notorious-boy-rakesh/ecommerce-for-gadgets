@@ -44,6 +44,20 @@
   --shadow-cyan:   0 8px 32px rgba(246, 36, 64, 0.08);
 }
 
+body.dark-theme {
+  --clr-bg:         #121212;
+  --clr-surface:    #1e1e1e;
+  --clr-surface-2:  #2a2a2a;
+  --clr-surface-3:  #383838;
+  --clr-text:       #ffffff;
+  --clr-text-2:     #e0e0e0;
+  --clr-muted:      #a0a0a0;
+  --clr-border:     #333333;
+  --clr-border-2:   #444444;
+  --shadow-sm:  0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-md:  0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-lg:  0 16px 64px rgba(0, 0, 0, 0.6);
+}
 /* ---------- Reset & Base ---------- */
 *, *::before, *::after {
   box-sizing: border-box;
@@ -100,6 +114,10 @@ img { max-width: 100%; height: auto; }
   position: sticky;
   top: 0;
   z-index: 1000;
+}
+
+body.dark-theme .tg-navbar {
+  background: rgba(30, 30, 30, 0.92);
 }
 
 .tg-navbar .navbar-brand {
@@ -383,7 +401,7 @@ img { max-width: 100%; height: auto; }
   position: relative;
 }
 .product-card-img-wrap img {
-  height: 180px;
+  height: 100%;
   width: 100%;
   object-fit: contain;
   transition: transform 0.3s ease;

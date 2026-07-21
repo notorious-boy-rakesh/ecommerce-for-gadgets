@@ -2,9 +2,53 @@ import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AdminContext } from '../../context/AdminContext';
 
-const AdminSidebar = ({ isOpen, closeSidebar }) => {
+const AdminSidebar = ({ isOpen, closeSidebar, searchQuery = '' }) => {
   const { settings } = useContext(AdminContext);
   
+  const navItems = [
+    { to: "/admin", icon: "bxs-dashboard", label: "Dashboard", end: true },
+    { to: "/admin/products", icon: "bx-box", label: "Products" },
+    { to: "/admin/categories", icon: "bx-category", label: "Categories" },
+    { to: "/admin/orders", icon: "bx-cart-alt", label: "Orders" },
+    { to: "/admin/users", icon: "bx-group", label: "Users" },
+    { to: "/admin/reviews", icon: "bx-star", label: "Reviews" },
+    { to: "/admin/blogs", icon: "bx-news", label: "Blogs" },
+    { to: "/admin/settings", icon: "bx-cog", label: "Settings" }
+  ];
+
+  const supportItems = [
+    { to: "/admin/enquiries", icon: "bx-help-circle", label: "Enquiries" },
+    { to: "/admin/complaints", icon: "bx-error-circle", label: "Complaints" },
+    { to: "/admin/contacts", icon: "bx-message-square-detail", label: "Contact Msgs" }
+  ];
+
+  const adminItems = [
+    { to: "/admin/profile", icon: "bx-user-circle", label: "Admin Profile" }
+  ];
+
+  const filterItems = (items) => {
+    if (!searchQuery) return items;
+    return items.filter(item => item.label.toLowerCase().includes(searchQuery.toLowerCase()));
+  };
+
+  const renderNavLinks = (items) => {
+    return filterItems(items).map(item => (
+      <NavLink 
+        key={item.to}
+        to={item.to} 
+        end={item.end} 
+        className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} 
+        onClick={closeSidebar}
+      >
+        <i className={`bx ${item.icon}`}></i> {item.label}
+      </NavLink>
+    ));
+  };
+
+  const filteredNav = renderNavLinks(navItems);
+  const filteredSupport = renderNavLinks(supportItems);
+  const filteredAdmin = renderNavLinks(adminItems);
+
   return (
     <aside className={`admin-sidebar ${isOpen ? 'open' : ''}`}>
       <div className="admin-sidebar-header">
@@ -17,50 +61,23 @@ const AdminSidebar = ({ isOpen, closeSidebar }) => {
         </button>
       </div>
       <nav className="admin-sidebar-nav">
-        <NavLink to="/admin" end className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bxs-dashboard'></i> Dashboard
-        </NavLink>
-        <NavLink to="/admin/products" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-box'></i> Products
-        </NavLink>
-        <NavLink to="/admin/categories" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-category'></i> Categories
-        </NavLink>
-        <NavLink to="/admin/orders" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-cart-alt'></i> Orders
-        </NavLink>
-        <NavLink to="/admin/users" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-group'></i> Users
-        </NavLink>
-        <NavLink to="/admin/reviews" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-star'></i> Reviews
-        </NavLink>
-        <NavLink to="/admin/blogs" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-news'></i> Blogs
-        </NavLink>
-        <NavLink to="/admin/settings" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-cog'></i> Settings
-        </NavLink>
-
-        <div className="admin-sidebar-divider" style={{ borderTop: '1px solid var(--clr-border)', margin: '15px 15px', opacity: 0.5 }}></div>
-        <div style={{ padding: '0 20px', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--clr-muted)', fontWeight: 'bold', marginBottom: '8px' }}>Support Hub</div>
+        {filteredNav}
         
-        <NavLink to="/admin/enquiries" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-help-circle'></i> Enquiries
-        </NavLink>
-        <NavLink to="/admin/complaints" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-error-circle'></i> Complaints
-        </NavLink>
-        <NavLink to="/admin/contacts" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-message-square-detail'></i> Contact Msgs
-        </NavLink>
+        {filteredSupport.length > 0 && (
+          <>
+            <div className="admin-sidebar-divider" style={{ borderTop: '1px solid var(--clr-border)', margin: '15px 15px', opacity: 0.5 }}></div>
+            <div style={{ padding: '0 20px', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--clr-muted)', fontWeight: 'bold', marginBottom: '8px' }}>Support Hub</div>
+            {filteredSupport}
+          </>
+        )}
 
-        <div className="admin-sidebar-divider" style={{ borderTop: '1px solid var(--clr-border)', margin: '15px 15px', opacity: 0.5 }}></div>
-        <div style={{ padding: '0 20px', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--clr-muted)', fontWeight: 'bold', marginBottom: '8px' }}>Admin Management</div>
-
-        <NavLink to="/admin/profile" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
-          <i className='bx bx-user-circle'></i> Admin Profile
-        </NavLink>
+        {filteredAdmin.length > 0 && (
+          <>
+            <div className="admin-sidebar-divider" style={{ borderTop: '1px solid var(--clr-border)', margin: '15px 15px', opacity: 0.5 }}></div>
+            <div style={{ padding: '0 20px', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--clr-muted)', fontWeight: 'bold', marginBottom: '8px' }}>Admin Management</div>
+            {filteredAdmin}
+          </>
+        )}
       </nav>
       <div className="p-3">
         <NavLink to="/home" className="admin-btn-secondary w-100 text-center text-decoration-none d-block">

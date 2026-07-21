@@ -49,7 +49,7 @@ const AdminLogin = () => {
             <input
               type="text"
               className="admin-form-control"
-              placeholder="admin@example.com"
+              placeholder="Email"
               value={adminId}
               onChange={(e) => setAdminId(e.target.value)}
             />
@@ -59,7 +59,7 @@ const AdminLogin = () => {
             <input
               type="password"
               className="admin-form-control"
-              placeholder="password123"
+              placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
