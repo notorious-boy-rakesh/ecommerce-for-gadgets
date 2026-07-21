@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
   const { cartCount } = useContext(CartContext);
-  const { logout } = useContext(AuthContext);
+  const { currentUser, logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = (e) => {
@@ -38,6 +38,12 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
+            {currentUser && (
+              <div className="d-flex align-items-center ms-3 me-1" style={{ color: 'var(--clr-text)', fontFamily: 'var(--font-heading)' }}>
+                <i className="bx bxs-user-circle me-1" style={{ fontSize: '1.4rem' }}></i>
+                <span style={{ fontWeight: '600', fontSize: '0.95rem' }}>{currentUser.name}</span>
+              </div>
+            )}
             <button onClick={handleLogout} className="btn-nav-logout" style={{ border: 'none', cursor: 'pointer' }}>Logout</button>
           </div>
         </div>
