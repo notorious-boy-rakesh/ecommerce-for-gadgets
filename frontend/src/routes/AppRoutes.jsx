@@ -40,6 +40,10 @@ import AdminCategories from '../pages/admin/AdminCategories';
 import AdminUsers from '../pages/admin/AdminUsers';
 import AdminReviews from '../pages/admin/AdminReviews';
 import AdminBlogs from '../pages/admin/AdminBlogs';
+import AdminProfile from '../pages/admin/AdminProfile';
+import AdminEnquiries from '../pages/admin/AdminEnquiries';
+import AdminComplaints from '../pages/admin/AdminComplaints';
+import AdminContacts from '../pages/admin/AdminContacts';
 
 const AppRoutes = () => {
   const { settings } = useContext(AdminContext);
@@ -91,7 +95,10 @@ const AppRoutes = () => {
           <Route path="users" element={<AdminUsers />} />
           <Route path="reviews" element={<AdminReviews />} />
           <Route path="blogs" element={<AdminBlogs />} />
-          <Route path="profile" element={<AdminPlaceholder title="Admin Profile" icon="bx-user" />} />
+          <Route path="enquiries" element={<AdminEnquiries />} />
+          <Route path="complaints" element={<AdminComplaints />} />
+          <Route path="contacts" element={<AdminContacts />} />
+          <Route path="profile" element={<AdminProfile />} />
         </Route>
       </Route>
 

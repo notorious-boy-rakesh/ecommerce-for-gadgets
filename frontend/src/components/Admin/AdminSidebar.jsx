@@ -41,6 +41,26 @@ const AdminSidebar = ({ isOpen, closeSidebar }) => {
         <NavLink to="/admin/settings" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
           <i className='bx bx-cog'></i> Settings
         </NavLink>
+
+        <div className="admin-sidebar-divider" style={{ borderTop: '1px solid var(--clr-border)', margin: '15px 15px', opacity: 0.5 }}></div>
+        <div style={{ padding: '0 20px', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--clr-muted)', fontWeight: 'bold', marginBottom: '8px' }}>Support Hub</div>
+        
+        <NavLink to="/admin/enquiries" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
+          <i className='bx bx-help-circle'></i> Enquiries
+        </NavLink>
+        <NavLink to="/admin/complaints" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
+          <i className='bx bx-error-circle'></i> Complaints
+        </NavLink>
+        <NavLink to="/admin/contacts" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
+          <i className='bx bx-message-square-detail'></i> Contact Msgs
+        </NavLink>
+
+        <div className="admin-sidebar-divider" style={{ borderTop: '1px solid var(--clr-border)', margin: '15px 15px', opacity: 0.5 }}></div>
+        <div style={{ padding: '0 20px', fontSize: '0.75rem', textTransform: 'uppercase', color: 'var(--clr-muted)', fontWeight: 'bold', marginBottom: '8px' }}>Admin Management</div>
+
+        <NavLink to="/admin/profile" className={({ isActive }) => `admin-nav-item ${isActive ? 'active' : ''}`} onClick={closeSidebar}>
+          <i className='bx bx-user-circle'></i> Admin Profile
+        </NavLink>
       </nav>
       <div className="p-3">
         <NavLink to="/home" className="admin-btn-secondary w-100 text-center text-decoration-none d-block">

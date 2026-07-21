@@ -10,6 +10,9 @@ export const AdminProvider = ({ children }) => {
   const [categories, setCategories] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [blogs, setBlogs] = useState([]);
+  const [enquiries, setEnquiries] = useState([]);
+  const [complaints, setComplaints] = useState([]);
+  const [contactMessages, setContactMessages] = useState([]);
   const [settings, setSettings] = useState({
     siteName: 'Teckkie Gadgets',
     maintenanceMode: false,
@@ -52,6 +55,15 @@ export const AdminProvider = ({ children }) => {
           
           const { data: reviewData } = await api.get('/reviews');
           setReviews(extractData(reviewData).map(item => ({ ...item, id: item._id })));
+
+          const { data: enquiryData } = await api.get('/enquiries');
+          setEnquiries(extractData(enquiryData).map(item => ({ ...item, id: item._id })));
+
+          const { data: complaintData } = await api.get('/complaints');
+          setComplaints(extractData(complaintData).map(item => ({ ...item, id: item._id })));
+
+          const { data: contactData } = await api.get('/contact');
+          setContactMessages(extractData(contactData).map(item => ({ ...item, id: item._id })));
           
           const { data: settingsData } = await api.get('/settings');
           setSettings(extractData(settingsData));
@@ -148,6 +160,10 @@ export const AdminProvider = ({ children }) => {
   const updateReview = (id, isApproved) => updateEntity('/reviews', id, { isApproved }, reviews, setReviews);
   const deleteReview = (id) => deleteEntity('/reviews', id, reviews, setReviews);
 
+  const deleteEnquiry = (id) => deleteEntity('/enquiries', id, enquiries, setEnquiries);
+  const deleteComplaint = (id) => deleteEntity('/complaints', id, complaints, setComplaints);
+  const deleteContactMessage = (id) => deleteEntity('/contact', id, contactMessages, setContactMessages);
+
   const updateSetting = async (keyOrObj, value) => {
     try {
       const newSettings = typeof keyOrObj === 'object' 
@@ -171,6 +187,9 @@ export const AdminProvider = ({ children }) => {
       users, setUsers, updateUserRole, deleteUser,
       reviews, setReviews, updateReview, deleteReview,
       blogs, setBlogs, addBlog, updateBlog, deleteBlog,
+      enquiries, setEnquiries, deleteEnquiry,
+      complaints, setComplaints, deleteComplaint,
+      contactMessages, setContactMessages, deleteContactMessage,
       settings, updateSetting,
       isAdminAuthenticated, adminLogin, adminLogout
     }}>

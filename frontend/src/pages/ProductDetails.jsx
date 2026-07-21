@@ -3,11 +3,13 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../api/axios';
 import { CartContext } from '../context/CartContext';
 import { AuthContext } from '../context/AuthContext';
+import { AdminContext } from '../context/AdminContext';
 
 const ProductDetails = () => {
   const { id } = useParams();
   const { addToCart } = useContext(CartContext);
   const { currentUser } = useContext(AuthContext);
+  const { products, setProducts } = useContext(AdminContext);
 
   const [product, setProduct] = useState(null);
   const [reviews, setReviews] = useState([]);
@@ -70,9 +72,20 @@ const ProductDetails = () => {
         comment
       });
       
+      // Re-fetch product and reviews to update local state immediately
+      const { data: prodData } = await api.get(`/products/${id}`);
+      const updatedProduct = prodData.data ? prodData.data : prodData;
+      setProduct(updatedProduct);
+
+      const { data: revData } = await api.get(`/reviews/product/${id}`);
+      setReviews(revData.data ? revData.data : revData);
+
+      // Update global context so other pages show the new rating
+      setProducts(products.map(p => (p.id === id || p._id === id) ? { ...p, ...updatedProduct } : p));
+      
       setReviewSubmitStatus({ 
         loading: false, 
-        message: 'Review submitted successfully! It will appear once approved by an admin.', 
+        message: 'Review submitted successfully!', 
         isError: false 
       });
       setRating(5);
@@ -139,9 +152,9 @@ const ProductDetails = () => {
             
             <div className="d-flex align-items-center mb-3">
               <div className="text-warning me-2 fs-5">
-                {'★'.repeat(Math.round(product.ratingStars || 5))}{'☆'.repeat(5 - Math.round(product.ratingStars || 5))}
+                {product.ratingStars || '★★★★★'}
               </div>
-              <span className="text-muted">({reviews.length} customer reviews)</span>
+              <span className="text-muted">({product.reviews} customer reviews)</span>
             </div>
 
             <div className="mb-4">
