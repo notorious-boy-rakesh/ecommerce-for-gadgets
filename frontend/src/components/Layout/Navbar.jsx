@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { AdminContext } from '../../context/AdminContext';
 
 const Navbar = () => {
-  const { cartCount } = useContext(CartContext);
+  const { cartCount, clearCart } = useContext(CartContext);
   const { currentUser, logout } = useContext(AuthContext);
   const { products } = useContext(AdminContext);
   const navigate = useNavigate();
@@ -42,6 +42,7 @@ const Navbar = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    clearCart();
     logout();
     navigate('/login');
   };

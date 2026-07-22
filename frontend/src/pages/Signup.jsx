@@ -1,11 +1,13 @@
 import { useContext, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import { CartContext } from '../context/CartContext';
 import '../styles/Auth.css';
 
 const Signup = () => {
   const navigate = useNavigate();
   const { signup } = useContext(AuthContext);
+  const { clearCart } = useContext(CartContext);
   const [error, setError] = useState('');
   const [isDarkMode, setIsDarkMode] = useState(false);
 
@@ -74,6 +76,7 @@ const Signup = () => {
     const result = await signup({ name, email, phone, password });
     
     if (result.success) {
+      clearCart();
       alert("Account created successfully!");
       navigate('/login');
     } else {

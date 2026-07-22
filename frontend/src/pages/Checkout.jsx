@@ -1,20 +1,25 @@
 import { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
+import { AuthContext } from '../context/AuthContext';
 import PageHero from '../components/Layout/PageHero';
 import api from '../api/axios';
 
 const Checkout = () => {
   const { cart, clearCart } = useContext(CartContext);
+  const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (cart.length === 0) {
+    if (!currentUser) {
+      alert("Please login or create an account to proceed with checkout.");
+      navigate('/login');
+    } else if (cart.length === 0) {
       alert("Your cart is empty! Redirecting to products.");
       navigate('/products');
     }
-  }, [cart, navigate]);
+  }, [cart, currentUser, navigate]);
 
   const subtotal = cart.reduce((total, item) => total + (item.price * item.qty), 0);
   const tax = Math.round(subtotal * 0.18);
