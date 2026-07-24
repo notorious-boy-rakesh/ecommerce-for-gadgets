@@ -67,6 +67,10 @@ const AdminLogin = () => {
           <button type="submit" className="admin-btn-primary w-100" style={{ width: '100%', justifyContent: 'center', padding: '0.75rem' }}>
             <i className='bx bx-log-in-circle'></i> Secure Login
           </button>
+          <div style={{ marginTop: '15px', textAlign: 'center', fontSize: '0.85rem', color: 'var(--admin-text-muted)' }}>
+            Admin Email: <strong>admin@gmail.com</strong><br />
+            Password: <strong>admin123</strong>
+          </div>
         </form>
 
         <div className="text-center mt-4">
